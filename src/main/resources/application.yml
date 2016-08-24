@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  
+#eureka:
+#  client:
+#    service-url: 
+#      default-zone: http://localhost:8761/eureka/
+      
+      
+security:
+  basic:
+    enabled: false
+management:
+  security:
+    enabled: false
