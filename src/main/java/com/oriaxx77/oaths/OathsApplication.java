@@ -9,7 +9,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import com.oriaxx77.oaths.domain.APNService;
 import com.relayrides.pushy.apns.ApnsClient;
 import com.relayrides.pushy.apns.ApnsClientBuilder;
 import com.relayrides.pushy.apns.ClientNotConnectedException;

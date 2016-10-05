@@ -1,9 +1,10 @@
-package com.oriaxx77.oaths.domain
+package com.oriaxx77.oaths.domain.repository
 
 import java.util.UUID
 import scala.collection._
 import org.springframework.stereotype.Component
 import scala.collection.concurrent.TrieMap
+import com.oriaxx77.oaths.domain.enity.User
 
 
 // TODO: refactor. Looks like a transaction script :(

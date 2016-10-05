@@ -1,4 +1,4 @@
-package com.oriaxx77.oaths.domain
+package com.oriaxx77.oaths.domain.enity
 
 class Person( _firstName:String, _surName:String, _email:String ) {
   

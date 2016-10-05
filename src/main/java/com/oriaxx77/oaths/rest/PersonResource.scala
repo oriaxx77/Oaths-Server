@@ -3,7 +3,7 @@ package com.oriaxx77.oaths.rest
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-import com.oriaxx77.oaths.domain.Person
+import com.oriaxx77.oaths.domain.enity.Person
 import org.springframework.web.bind.annotation.RequestMethod
 import play.api.libs.json._
 import collection.JavaConversions._

@@ -1,23 +1,13 @@
-package com.oriaxx77.oaths.domain
+package com.oriaxx77.oaths.domain.service
 
 import com.relayrides.pushy.apns.util.SimpleApnsPushNotification
-
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-
-import javax.net.ssl.SSLException;
-
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import com.relayrides.pushy.apns.ApnsClient;
-import com.relayrides.pushy.apns.ApnsClientBuilder;
-import com.relayrides.pushy.apns.ClientNotConnectedException;
-import com.relayrides.pushy.apns.PushNotificationResponse;
-import com.relayrides.pushy.apns.util.ApnsPayloadBuilder;
-import com.relayrides.pushy.apns.util.SimpleApnsPushNotification;
-import com.relayrides.pushy.apns.util.TokenUtil;
+import java.io.File
+import java.util.concurrent.ExecutionException
+import com.relayrides.pushy.apns.ApnsClient
+import com.relayrides.pushy.apns.ApnsClientBuilder
+import com.relayrides.pushy.apns.ClientNotConnectedException
+import com.relayrides.pushy.apns.util.ApnsPayloadBuilder
+import com.relayrides.pushy.apns.util.SimpleApnsPushNotification
 import org.springframework.stereotype.Component
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy

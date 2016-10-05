@@ -1,7 +1,7 @@
 package com.oriaxx77.oaths
 
 import play.api.libs.json.Writes
-import com.oriaxx77.oaths.domain.Person
+import com.oriaxx77.oaths.domain.enity.Person
 import play.api.libs.json.Json
 
 /**

@@ -1,15 +1,15 @@
 package com.oriaxx77.oaths.rest
 
-import com.oriaxx77.oaths.domain.UserRepository
+import com.oriaxx77.oaths.domain.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
-import com.oriaxx77.oaths.domain.UserRepository
+import com.oriaxx77.oaths.domain.repository.UserRepository
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RequestBody
-import com.oriaxx77.oaths.domain.User
+import com.oriaxx77.oaths.domain.enity.User
 import play.api.libs.json.Writes
 import play.api.libs.json._
 
@@ -31,6 +31,7 @@ class UserResource @Autowired() ( userRepository: UserRepository )
   
   @RequestMapping(value=Array("/user"), method = Array(RequestMethod.GET))
   def getUsers():String = {
+    println( userRepository.emailUserMap.values )
     return Json.obj( "users" -> userRepository.emailUserMap.values ).toString()
   }
   
