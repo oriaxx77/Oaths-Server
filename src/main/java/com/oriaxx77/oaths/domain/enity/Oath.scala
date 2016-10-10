@@ -6,31 +6,26 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import java.util.Date
-
-
+import javax.persistence.ManyToOne
+import javax.persistence.FetchType
 
 @Entity
 class Oath(@BeanProperty var oath: String) {
 
-	@Deprecated
-	def this() {this("")}
+  @Deprecated
+  def this() { this("") }
 
+  @ManyToOne(fetch=FetchType.LAZY, optional=false)
+  @BeanProperty
+  var oathTaker: User = _
 
-//	@OneToMany(mappedBy = "book")
-//	var reviews: ju.Set[Review] = new ju.HashSet()
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  var id: Long = _
+  var temptationFailedCount: Long = 0
+  var temptationOvercomeCount: Long = 0
+  var createdAt: Date = new Date()
+  var lastModified: Date = new Date()
 
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)   
-    var id: Long = _
-    var temptationFailedCount: Long = _
-    var temptationOvercomeCount: Long = _
-    var createdAt: Date = _
-    var lastModified: Date = _
-    
-        
-    // def this() = this (null, null)
- 
-    // override def toString = id + " = " + firstName + " " + lastName
-  
+  override def toString = "Oath{ id: " + id + ", oath:" + oath + "}"
 }

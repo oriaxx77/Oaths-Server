@@ -4,11 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.stream.IntStream;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import com.oriaxx77.oaths.domain.enity.Oath;
+import com.oriaxx77.oaths.domain.enity.User;
+import com.oriaxx77.oaths.domain.repository.OathRepository;
+import com.oriaxx77.oaths.domain.repository.UserRepository;
 import com.relayrides.pushy.apns.ApnsClient;
 import com.relayrides.pushy.apns.ApnsClientBuilder;
 import com.relayrides.pushy.apns.ClientNotConnectedException;
@@ -81,7 +86,20 @@ public class OathsApplication {
 		// sendPushNotification();
 		
 		ConfigurableApplicationContext ctx = SpringApplication.run(OathsApplication.class, args);
-		//ctx.getBean( APNService.class ).sendNotificationSync( "0ec7819c 15b34119 a297b3ec 1522d3f8 01af3193 977cd586 34504ed5 2bbe042c" , "From Server", "Hello there");
+		OathRepository oathRepo = ctx.getBean( OathRepository.class );
+		UserRepository userRepo = ctx.getBean( UserRepository.class );
+		
+		IntStream.range( 0, 2 ).forEach( i -> {
+			
+			User user = new User( "oriaxx@gmail.com" +i, "email", "authCode", "", "" );
+			Oath oath = new Oath(  user.email() + " " + i + " oath " );
+			userRepo.save( user );
+			oath.setOathTaker( user );
+			oathRepo.save( oath );
+			System.out.println( "____ Oath saved: " + oath.oath() );
+
+		});
+				//ctx.getBean( APNService.class ).sendNotificationSync( "0ec7819c 15b34119 a297b3ec 1522d3f8 01af3193 977cd586 34504ed5 2bbe042c" , "From Server", "Hello there");
 		
 
 	}

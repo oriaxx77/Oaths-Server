@@ -1,8 +1,7 @@
 package com.oriaxx77.oaths.rest
 
-import com.oriaxx77.oaths.domain.repository.UserRepository
+
 import org.springframework.beans.factory.annotation.Autowired
-import com.oriaxx77.oaths.domain.repository.UserRepository
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -12,27 +11,22 @@ import org.springframework.web.bind.annotation.RequestBody
 import com.oriaxx77.oaths.domain.enity.User
 import play.api.libs.json.Writes
 import play.api.libs.json._
+import com.oriaxx77.oaths.rest.conversion.Jsonize
+import com.oriaxx77.oaths.domain.service.UserService
 
 
 @RestController
 @Autowired
-class UserResource @Autowired() ( userRepository: UserRepository ) 
+class UserResource @Autowired() ( userService: UserService ) 
 {
   
-  implicit val userWrites = new Writes[User] {
-                def writes(u: User) = Json.obj(
-                  "email" -> u.email,
-                  "authCode" -> u.authCode,
-                  "authToken" -> u.authToken,
-                  "deviceToken" -> u.pushNotifictionDeviceToken
-                  )
-                }
- 
+  
   
   @RequestMapping(value=Array("/user"), method = Array(RequestMethod.GET))
   def getUsers():String = {
-    println( userRepository.emailUserMap.values )
-    return Json.obj( "users" -> userRepository.emailUserMap.values ).toString()
+    println( userService.emailUserMap.values )
+    import Jsonize._
+    return Json.obj( "users" -> userService.emailUserMap.values ).toString()
   }
   
   
@@ -40,20 +34,21 @@ class UserResource @Autowired() ( userRepository: UserRepository )
   @RequestMapping( value=Array("/authByCode"), method=Array(RequestMethod.POST) )  
   def authByCode( @RequestBody authCode: String ): String = {
     //TODO: invariants? Use ScalaZ
-    return userRepository.authByCode( authCode )
+    return userService.authByCode( authCode )
   }
   
   @RequestMapping( value=Array("/authByEmail"), method=Array(RequestMethod.POST) )  
   def authByEmail( @RequestBody email: String ): String = {
     //TODO: invariants? Use ScalaZ
-    return userRepository.authByEmail( email )
+    return userService.authByEmail( email )
   }
   
   @RequestMapping( value=Array("/register"), method=Array(RequestMethod.PUT) )  
   def register( @RequestBody email: String ): String = {
     //TODO: invariants? Use ScalaZ
     //TODO: invariant: email is already taken
-    return userRepository.create(email);
+    //TODO: get username
+    return userService.create(email,"unknown");
   }
   
   
@@ -61,13 +56,13 @@ class UserResource @Autowired() ( userRepository: UserRepository )
   def registerPushNotificationDeviceToken( @RequestParam authToken: String, 
                                            @RequestParam deviceToken: String ) {
       println( "deviceToken", deviceToken )
-      userRepository.setPushNotificationDeviceToken(authToken, deviceToken)
+      userService.setPushNotificationDeviceToken(authToken, deviceToken)
   }
   
   // TODO: remove this. It is here only for testing
   @RequestMapping( value=Array("/sendPushNotification"), method=Array(RequestMethod.GET))
   def sendPushNotification(){
-    userRepository.emailUserMap
+    userService.emailUserMap
                   .values
                   .filter { user => user.pushNotifictionDeviceToken != null && !user.pushNotifictionDeviceToken.isEmpty() }
                   .foreach { user => println( "Sending notification to " + user.pushNotifictionDeviceToken ) }
