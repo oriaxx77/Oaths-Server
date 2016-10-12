@@ -13,20 +13,23 @@ import play.api.libs.json.Writes
 import play.api.libs.json._
 import com.oriaxx77.oaths.rest.conversion.Jsonize
 import com.oriaxx77.oaths.domain.service.UserService
+import com.oriaxx77.oaths.domain.repository.UserRepository
+import scala.collection.JavaConverters._
 
+case class RegisterBody( email:String, userName:String );
 
 @RestController
 @Autowired
-class UserResource @Autowired() ( userService: UserService ) 
+class UserResource @Autowired() ( userService: UserService, userRepository: UserRepository ) 
 {
   
   
   
   @RequestMapping(value=Array("/user"), method = Array(RequestMethod.GET))
   def getUsers():String = {
-    println( userService.emailUserMap.values )
     import Jsonize._
-    return Json.obj( "users" -> userService.emailUserMap.values ).toString()
+    return Json.obj( "users" -> userRepository.findAll().asScala ).toString()
+    
   }
   
   
@@ -44,11 +47,11 @@ class UserResource @Autowired() ( userService: UserService )
   }
   
   @RequestMapping( value=Array("/register"), method=Array(RequestMethod.PUT) )  
-  def register( @RequestBody email: String ): String = {
+  def register( @RequestBody user: RegisterBody ): String = {
     //TODO: invariants? Use ScalaZ
     //TODO: invariant: email is already taken
     //TODO: get username
-    return userService.create(email,"unknown");
+    return userService.create( user.email,user.userName);
   }
   
   
@@ -62,9 +65,9 @@ class UserResource @Autowired() ( userService: UserService )
   // TODO: remove this. It is here only for testing
   @RequestMapping( value=Array("/sendPushNotification"), method=Array(RequestMethod.GET))
   def sendPushNotification(){
-    userService.emailUserMap
-                  .values
-                  .filter { user => user.pushNotifictionDeviceToken != null && !user.pushNotifictionDeviceToken.isEmpty() }
-                  .foreach { user => println( "Sending notification to " + user.pushNotifictionDeviceToken ) }
+//    userService.emailUserMap
+//                  .values
+//                  .filter { user => user.pushNotifictionDeviceToken != null && !user.pushNotifictionDeviceToken.isEmpty() }
+//                  .foreach { user => println( "Sending notification to " + user.pushNotifictionDeviceToken ) }
   }
 }

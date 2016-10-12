@@ -91,7 +91,7 @@ public class OathsApplication {
 		
 		IntStream.range( 0, 2 ).forEach( i -> {
 			
-			User user = new User( "oriaxx@gmail.com" +i, "email", "authCode", "", "" );
+			User user = new User( "oriaxx@gmail.com" +i, "email", "authCode"+i, "", "" );
 			Oath oath = new Oath(  user.email() + " " + i + " oath " );
 			userRepo.save( user );
 			oath.setOathTaker( user );

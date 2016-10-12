@@ -14,8 +14,8 @@ import scala.beans.BeanProperty
 case class User( @Column(unique=true) email: String, 
                  @Column(unique=true) name: String,
                  @Column(unique=true) authCode: String,
-                 var authToken: String,
-                 var pushNotifictionDeviceToken: String) {
+                 @BeanProperty var authToken: String,
+                 @BeanProperty var pushNotifictionDeviceToken: String) {
   
   def this(){ this( "", "","","", "")}
   

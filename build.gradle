@@ -36,6 +36,8 @@ dependencies {
 
 	compile 'org.scala-lang:scala-library:2.11.8'
 	compile group: 'com.typesafe.play', name: 'play-json_2.11', version: '2.5.4'
+	
+	
 
 	
 
@@ -94,6 +96,17 @@ eclipse {
         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
         
+    }
+}
+
+sourceSets {
+    main {
+        scala {
+            srcDirs = ['src/main/scala', 'src/main/java']
+        }
+        java {
+            srcDirs = []
+        }
     }
 }
 

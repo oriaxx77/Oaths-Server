@@ -18,4 +18,5 @@ trait UserRepository extends PagingAndSortingRepository[User, java.lang.Long] {
   
   def findUserByAuthToken( authToken: String): Optional[User];
 
+  def findUserByPushNotifictionDeviceTokenIsNotNull: java.lang.Iterable[User]
 }
