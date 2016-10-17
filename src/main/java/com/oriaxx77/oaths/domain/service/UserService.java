@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
 import com.oriaxx77.oaths.domain.enity.User;
 import com.oriaxx77.oaths.domain.repository.UserRepository;
 
@@ -13,7 +14,7 @@ import com.oriaxx77.oaths.domain.repository.UserRepository;
 // TODO: refactor. Looks like a transaction script :(
 // TODO: extract interface
 @Component
-public class UserService{
+public class UserService {
   
 	private UserRepository userRepository;
 	
@@ -42,7 +43,7 @@ public class UserService{
 			  										   UUID.randomUUID().toString(),"" );
 			  				  userRepository.save( newUser ); // TODO: sideffect!!!!
 			  				  return newUser;})
-			  			  .authToken();    
+			  			  .getAuthToken();    
   }
   
   /** Returns authToken */
@@ -53,7 +54,7 @@ public class UserService{
     								.orElseThrow( () -> new RuntimeException( "Not found" ) );
     user.setAuthToken( UUID.randomUUID().toString() );
     userRepository.save( user );	// WHY? It is [User,Long]
-    return user.authToken(); 
+    return user.getAuthToken(); 
   }
   
   
@@ -64,7 +65,7 @@ public class UserService{
     										.orElseThrow( () -> new RuntimeException( "Not found" ) );    
     user.setAuthToken( UUID.randomUUID().toString() );
     userRepository.save( user );	// WHY? It is [User,Long]
-	return user.authToken(); 
+	return user.getAuthToken(); 
   }
   
   

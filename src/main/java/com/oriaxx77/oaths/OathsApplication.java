@@ -91,14 +91,16 @@ public class OathsApplication {
 		
 		IntStream.range( 0, 2 ).forEach( i -> {
 			
-			User user = new User( "oriaxx@gmail.com" +i, "email", "authCode"+i, "", "" );
-			Oath oath = new Oath(  user.email() + " " + i + " oath " );
+			User user = new User( "oriaxx@gmail.com" +i, "oriaxx"+i, "authCode"+i, "", "" );
+			Oath oath = new Oath(  user.getEmail() + " " + i + " oath " );
 			userRepo.save( user );
 			oath.setOathTaker( user );
 			oathRepo.save( oath );
-			System.out.println( "____ Oath saved: " + oath.oath() );
+			System.out.println( "____ Oath saved: " + oath.getOath() );
 
 		});
+		
+		userRepo.findAll();
 				//ctx.getBean( APNService.class ).sendNotificationSync( "0ec7819c 15b34119 a297b3ec 1522d3f8 01af3193 977cd586 34504ed5 2bbe042c" , "From Server", "Hello there");
 		
 

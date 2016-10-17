@@ -5,6 +5,13 @@ Implemented in Scala using Spring Boot.
 
 It is in progress atm...
 
+#Features
+Resolution tracking
+- Failures -> Graphic
+- Temptation resisted -> Graphic
+- Ask help from friends
+- Ask offline help
+
 ##Rest Endpoints:
 
 ###Authentication
